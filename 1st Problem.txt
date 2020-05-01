@@ -1,0 +1,4 @@
+1st problem of the May Leetcode Challenge.
+1st approach was to just traverse through all of the numbers and then call the API one by one. (Time Limit Exceeded & also it is written to minimize the number of API calls.
+2nd approach was to implement the binary search over this sorted sequence. (Issue faced was to implement using recursion and not by using while loop: more difficult to implement).
+3rd was taking into consideration what type of input are we getting. (Long, Int etc.)
