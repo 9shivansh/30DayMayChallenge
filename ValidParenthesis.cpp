@@ -2,66 +2,69 @@ class Solution {
 public:
     bool isValid(string s) 
     {
-        /* some sanity check */
-        int len = s.length();
-       
-        if( len  == 1 || (len % 2 != 0)  /* should have valid pairs */)
-            return false;
+        stack<char> st;
         
-        
-        char cParenthesis =' ';
-        bool bValid = true;
-        stack <char> charStck;
-        
-        for(int i = 0; i < len && bValid; i++)
+        for(int i = 0; i < s.length(); i++)
         {
-            cParenthesis= s[i];
-            if( charStck.empty() ) 
+            if(s[i] == '(' || s[i] == '{' || s[i] == '[')
             {
-                charStck.push(cParenthesis);
+                st.push(s[i]);
             }
+            
             else
             {
-                switch(cParenthesis)
+                if(!st.empty())
                 {
-                case ']':
-                    if( '[' == charStck.top() )
+                    if(s[i] == ')')
                     {
-                        charStck.pop();
+                        if(st.top() != '(')
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            st.pop();
+                        }
                     }
-                    else
+                    
+                    if(s[i] == '}')
                     {
-                        charStck.push(cParenthesis);
-                    }  
-                    break;
-                case '}':
-                    if( '{' == charStck.top() )
-                    {
-                        charStck.pop();
+                        if(st.top() != '{')
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            st.pop();
+                        }
                     }
-                    else
+                    
+                    if(s[i] == ']')
                     {
-                        charStck.push(cParenthesis);
-                    }  
-                    break;
-                case ')':  
-                    if( '(' == charStck.top() )
-                    {
-                        charStck.pop();
+                        if(st.top() != '[')
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            st.pop();
+                        }
                     }
-                    else
-                    {
-                        charStck.push(cParenthesis);
-                    }  
-                    break;
-                default:
-                    charStck.push(cParenthesis);  
+                }
+                
+                else
+                {
+                    return false;
                 }
             }
         }
-
-        bValid = ( charStck.empty() == 1 ? true : false );
-       
-        return bValid;
+        
+        if(st.empty())
+        {
+            return true;
+        }
+        
+        return false;
+        
     }
 };
