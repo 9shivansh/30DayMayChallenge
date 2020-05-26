@@ -13,47 +13,45 @@ class Solution {
 public:
     TreeNode* insertIntoBST(TreeNode* root, int val) 
     {
-        if(root)
+        if(root == NULL)
         {
-            insert(root, val);
+            root = new TreeNode(val);
             return root;
         }
         else
         {
-            return new TreeNode(val);
+            helper(root, val);
         }
+        
+        return root;
+    
         
     }
     
-    void insert(TreeNode* root, int val)
+    void helper(TreeNode* root, int val)
     {
-        
-        if(root)
+        if(root -> val > val)
         {
-            cout << "root ! NULL" << endl;
-            if(root -> val < val)
+            if(root -> left == NULL)
             {
-                if(root -> right == NULL)
-                {
-                    root -> right = new TreeNode(val);
-                }
-                else
-                {
-                    insert(root -> right, val);
-                }
+                root -> left = new TreeNode(val);
+            }
+            
+            else
+            {
+                helper(root -> left, val);
+            }
+        }
+        if(root -> val < val)
+        {
+            if(root -> right == NULL)
+            {
+                root -> right = new TreeNode(val);
             }
             else
             {
-                if(root -> left == NULL)
-                {
-                    root -> left = new TreeNode(val);
-                }
-                else
-                {
-                    insert(root -> left, val);
-                }
+                helper(root -> right, val);
             }
-        } 
-        
+        }
     }
 };
