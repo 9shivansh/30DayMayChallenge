@@ -1,23 +1,47 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
 class Solution {
 public:
-    bool isBalanced(TreeNode* root) {
-        if(root== NULL)
-            return true;
-        int l,r;
-        l = maxDepth(root->left);
-        r = maxDepth(root->right);
-        if(abs(r-l) == 1 || abs(r-l) == 0){
-            return isBalanced(root->left) && isBalanced(root->right);
-        }
-        else
-            return false;
-    }    
-public:
-    int maxDepth(TreeNode* root) {
-       if(root == NULL)
-           return 0;
-        else 
-            return (1+max(maxDepth(root->left),maxDepth(root->right)));
+    
+    bool flag = true;
+    
+    
+    bool isBalanced(TreeNode* root) 
+    {
+        
+        int result = findHeight(root);
+        return flag;
+        
+        
     }
-
+    
+    int findHeight(TreeNode* root)
+    {
+        if(root)
+        {
+            int Lheight = findHeight(root -> left) + 1;
+            int Rheight = findHeight(root -> right) + 1;
+            cout << "Left Height " << Lheight << endl;
+            cout << "Right Height " << Rheight << endl; 
+            
+            if(abs(Lheight - Rheight) > 1)
+            {
+                flag = false;
+            }
+            
+            return max(Lheight, Rheight);
+        }
+        
+        return 0;
+        
+    }
 };
