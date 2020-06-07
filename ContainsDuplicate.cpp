@@ -3,19 +3,17 @@ public:
     bool containsDuplicate(vector<int>& nums) 
     {
         
-        sort(nums.begin(), nums.end());
-        int size = nums.size();
-        if(size == 0 || size == 1)
-        {
-            return false;
-        }
+        set<int> mp;
         
-        for(int i = 0; i < nums.size() - 1; i++)
+        
+        for(int i = 0; i < nums.size(); i++)
         {
-            if(nums[i] == nums[i + 1])
+            if(mp.find(nums[i]) != mp.end())
             {
                 return true;
             }
+            
+            mp.insert(nums[i]);
         }
         
         return false;
