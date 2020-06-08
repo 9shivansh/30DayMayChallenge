@@ -2,22 +2,35 @@ class Solution {
 public:
     bool isPowerOfTwo(int n) 
     {
-        if(n < 1)
-        {
-            return false;
-        }
-        if(n == 1)
+        int answer = binaryRepresentation(n);
+        if(answer == 1)
         {
             return true;
         }
         
-        int a = log2(n);
-        auto b = log2(n);
-        if(a == b)
-        {
-            return true;
-        }
         return false;
         
+    }
+    
+    
+    int binaryRepresentation(int n)
+    {
+        int count = 0;
+        while(n)
+        {
+            int p = n % 2;
+            n = n / 2;
+            if(p == 1)
+            {
+                count = count + 1;
+            }
+        }
+        
+        if(count == 1)
+        {
+            return 1;
+        }
+        
+        return 0;
     }
 };
