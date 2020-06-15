@@ -1,15 +1,62 @@
 class Solution {
 public:
-    bool canJump(vector<int>& nums) {
-        int N = nums.size();
-        if (N<=1) return true;
-        int leastStep=1;
-        for (int i=N-2; i>=1; --i) {
-		// check if the position must be jumped over
-            if (nums[i]>=leastStep) leastStep = 1;
-            else leastStep++;
+    int search(vector<int>& nums, int target) 
+    {
+        int start = 0;
+        int end = nums.size() - 1;
+        int size = nums.size();
+        
+        
+        
+        while(start < end)
+        {
+            int mid = (start + end) / 2;
+            
+            if(nums[mid] > nums[end])
+            {
+                start = mid + 1;
+            }
+            
+            if(nums[mid] < nums[end])
+            {
+                end = mid;
+            }
+            
         }
-        return nums[0]>=leastStep;
-}
-    
+        
+        
+       int pivot = start;
+        
+        start = 0;
+        
+        end = size - 1;
+        
+        
+        while(start <= end)
+        {
+            int mid = (start + end) / 2;
+            int realMid = (mid + pivot) % size;
+            
+            
+            if(nums[realMid] == target)
+            {
+                return realMid;
+            }
+            
+            if(nums[realMid] < target)
+            {
+                start = mid + 1;
+            }
+            
+            else
+            {
+                end = mid - 1;
+            }
+            
+        }
+        
+        return -1;
+        
+        
+    }
 };

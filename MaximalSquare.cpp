@@ -1,21 +1,55 @@
 class Solution {
 public:
-    int maximalSquare(vector<vector<char>>& matrix) {
-        if (matrix.empty()) {
+    int maximalSquare(vector<vector<char>>& grid) 
+    {
+        int row = grid.size();
+        int col;
+        
+        if(row)
+        {
+            col = grid[0].size();
+        }
+        
+        else
+        {
             return 0;
         }
-        int m = matrix.size(), n = matrix[0].size(), sz = 0;
-        vector<vector<int>> dp(m, vector<int>(n, 0));
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (!i || !j || matrix[i][j] == '0') {
-                    dp[i][j] = matrix[i][j] - '0';
-                } else {
-                    dp[i][j] = min(dp[i - 1][j - 1], min(dp[i - 1][j], dp[i][j - 1])) + 1;
+        
+        int maximum = INT_MIN;
+        
+        for(int i = 0; i < row; i++)
+        {
+            for(int j = 0; j < col; j++)
+            {
+                if(i == 0 || j == 0)
+                {
+                    maximum = max(grid[i][j] - '0', maximum);
                 }
-                sz = max(dp[i][j], sz);
+                
+                if(i > 0 && j > 0)
+                {
+                    if(grid[i][j] == '1')
+                    {
+                        grid[i][j] = (min(min(grid[i - 1][j] - '0', grid[i][j - 1] - '0'), grid[i - 1][j - 1] - '0') + 1) + '0';
+                        
+                        maximum = max(maximum, grid[i][j] - '0');
+                        
+                    }
+                }
+                
+                cout << grid[i][j] << " ";
+                
             }
+            
+            cout << endl;
         }
-        return sz * sz;
+        
+        if(maximum == INT_MIN)
+        {
+            return 0;
+        }
+        
+        return maximum * maximum;
+        
     }
 };
