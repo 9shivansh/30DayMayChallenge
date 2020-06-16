@@ -1,13 +1,6 @@
-class Solution:
-    def topKFrequent(self, words: List[str], k: int) -> List[str]:
-        words.sort()
-        d=collections.Counter(words)
-        ans=[]
-        d=d.most_common()
-        for each in d :
-            if k :
-                ans.append(each[0])
-                k-=1
-            else :
-                break
-        return ans
+class Solution(object):
+    def topKFrequent(self, words, k):
+        count = collections.Counter(words)
+        candidates = count.keys()
+        candidates.sort(key = lambda w: (-count[w], w))
+        return candidates[:k]

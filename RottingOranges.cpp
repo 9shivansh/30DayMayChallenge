@@ -1,50 +1,104 @@
 class Solution {
-
 public:
-    int orangesRotting(vector<vector<int>>& grid) {        
-        queue<pair<int,int>> rottenOrangesQ;
-        int freshOrganges = 0;
-        for(int i=0; i<grid.size(); ++i)
+    int orangesRotting(vector<vector<int>>& grid) 
+    {
+        
+        
+        
+        int row = grid.size();
+        int col = grid[0].size();
+        
+        
+        queue<pair<int, int>> que;
+        int countFresh = 0;
+        
+        
+        for(int i = 0; i < row; i++)
         {
-            for(int j=0; j<grid[0].size(); ++j)
+            for(int j = 0; j < col; j++)
             {
                 if(grid[i][j] == 2)
-                   rottenOrangesQ.push({i,j});//rottenOranges
-                else if(grid[i][j] == 1)
-                    freshOrganges++;//freshOrganges count
-            }
-        }
-        
-        if(freshOrganges == 0)//No fresh orange, return 0 days
-            return 0;
-        
-        if(rottenOrangesQ.size() == 0)//No rotten oranges, simply return -1;
-            return -1;
-        
-        int days = 0;
-        vector<pair<int,int>> directions ={{-1,0},{0,1},{1,0},{0,-1}};//all four directions.
-        while(!rottenOrangesQ.empty() && freshOrganges>0)//Run until no rotten oranges left in q.
-        {
-            int size = rottenOrangesQ.size();//same as level orer.
-            for(int rottenOranges=0; rottenOranges<size; ++rottenOranges)
-            {
-                auto coordinates= rottenOrangesQ.front(); rottenOrangesQ.pop();//take rotten orange coordinate
-                for(auto dir:directions)//navigate in all four direction.
                 {
-                    int i = coordinates.first+dir.first;
-                    int j = coordinates.second+dir.second;
-                    if(i<0 || j<0 || i==grid.size() || j==grid[i].size() || grid[i][j] != 1)
-                        continue;
-                    
-                    grid[i][j]=2;
-                    rottenOrangesQ.push({i,j});//Add new cordinate as rotten orange.
-                    freshOrganges--;
+                    que.push({i, j});
+                }
+                
+                if(grid[i][j] == 1)
+                {
+                    countFresh = countFresh + 1;
                 }
             }
-            days++;
         }
-        if(freshOrganges>0)
+        
+        if(que.size() == 0)
+        {
+            if(countFresh > 0)
+            {
+                return -1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        
+        vector<pair<int, int>> directions;
+        
+        directions.push_back({1, 0});
+        
+        directions.push_back({-1, 0});
+        
+        directions.push_back({0, 1});
+                
+        directions.push_back({0, -1});
+    
+        int count = 0;
+        
+        
+        while(!que.empty())
+        {
+            count = count + 1;
+            int size = que.size();
+            
+            for(int i = 0; i < size; i++)
+            {
+                int x = que.front().first;
+                int y = que.front().second;
+                que.pop();
+                
+                cout << x << " " << y << endl;
+                
+                for(int i = 0; i < 4; i++)
+                {
+                    int a = x + directions[i].first;
+                    int b = y + directions[i].second;
+                    
+                    if(a >= 0 && a < row && b >= 0 && b < col && grid[a][b] == 1)
+                    {
+                        //cout << a << " " << b << endl;
+                        
+                        grid[a][b] = 2;
+                        que.push({a, b});
+                        countFresh = countFresh - 1;
+                        
+                    }
+                    
+                }
+                
+                
+                
+                cout << "------------" << endl;
+                
+            }
+        }
+        
+        if(countFresh > 0)
+        {
             return -1;
-        return days;    
-    }    
+        }
+        
+        return count - 1;
+        
+        
+        
+    }
 };
