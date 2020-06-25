@@ -1,36 +1,48 @@
 class Solution {
 public:
-    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) 
+    vector<int> intersect(vector<int>& nums1, vector<int>& nums2) 
     {
-        set<int> s1;
-        vector<int> result;
+        unordered_map<int, int> mp;
         
-        int size1 = nums1.size();
-        int size2 = nums2.size();
+        int size = nums1.size();
         
-        for(int i = 0; i < size1; i++)
+        for(int i = 0; i < size; i++)
         {
-            
-                s1.insert(nums1[i]);
-            
-        }
-        
-        for(int i = 0; i < size2; i++)
-        {
-            if(s1.find(nums2[i]) != s1.end())
+            if(mp.find(nums1[i]) != mp.end())
             {
-                result.push_back(nums2[i]);
-                s1.erase(nums2[i]);
-                
+                mp[nums1[i]] = mp[nums1[i]] + 1;
+            }
+            
+            else
+            {
+                mp[nums1[i]] = 1;
             }
         }
         
+        size = nums2.size();
+        
+        vector<int> result;
+        
+        
+        for(int i = 0; i < size; i++)
+        {
+            if(mp.find(nums2[i]) != mp.end())
+            {
+                if(mp[nums2[i]] == 1)
+                {
+                    mp.erase(nums2[i]);
+                }
+                
+                else
+                {
+                    mp[nums2[i]] = mp[nums2[i]] - 1;
+                }
+                
+                result.push_back(nums2[i]);
+            }
+            
+        }
+        
         return result;
-        
-        
-        
-        
-        
-        
     }
 };

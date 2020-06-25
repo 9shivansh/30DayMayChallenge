@@ -1,10 +1,22 @@
 class Solution(object):
     def twoSum(self, nums, target):
-        if len(nums) <= 1:
-            return False
-        buff_dict = {}
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        a = {}
+        result = []
         for i in range(len(nums)):
-            if nums[i] in buff_dict:
-                return [buff_dict[nums[i]], i]
+            
+            if target - nums[i] in a:
+                
+                result.append(a[target - nums[i]])
+                result.append(i)
+                return result
+                
             else:
-                buff_dict[target - nums[i]] = i
+                
+                a[nums[i]] = i
+                
+        return -1

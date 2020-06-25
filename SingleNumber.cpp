@@ -2,27 +2,32 @@ class Solution {
 public:
     int singleNumber(vector<int>& nums) 
     {
+        unordered_map<int, int> m;
+        
         int size = nums.size();
-        int a;
+        
         for(int i = 0; i < size; i++)
         {
-            if(i == 0)
+            if(m.find(nums[i]) != m.end())
             {
-                a = nums[i];
+                m[nums[i]] = m[nums[i]] + 1;
             }
             
             else
             {
-                a = a ^ nums[i];
+                m[nums[i]] = 1;
             }
         }
         
-        return a;
+        
+        for(auto x : m)
+        {
+            if(x.second == 1)
+            {
+                return x.first;
+            }
+        }
+        
+        return -1;
     }
 };
-
-
-// XOR of different numbers is 0 when both the numbers are same
-// we need to keep in mind that only XOR of 2 numbers is 0
-// if we need to cancel out the same numbers from the array, we can always take XOR of all the elements
-// and the numbers left are those that cannot be formend into pairs
