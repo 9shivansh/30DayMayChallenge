@@ -3,29 +3,35 @@ public:
     int majorityElement(vector<int>& nums) 
     {
         
-        int majElement = 0;
+        int majEl;
+        
+        int size = nums.size();
+        
         int count = 0;
         
-        for(int i = 0; i < nums.size(); i++)
+        for(int i = 0; i < size; i++)
         {
             if(count == 0)
             {
-                majElement = nums[i];
+                majEl = nums[i];
+                count = 1;
             }
-            
-            if(nums[i] == majElement)
-            {
-                count = count + 1;
-            }
-            
             else
             {
-                count = count - 1;
+                if(majEl == nums[i])
+                {
+                    count = count + 1;
+                }
+
+                else
+                {
+                    count = count - 1;
+                }
             }
+            
+            
         }
         
-        return majElement;
-        
-        
+        return majEl;
     }
 };

@@ -1,29 +1,25 @@
-class Solution(object):
-    def groupAnagrams(self, strs):
-        
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         
         a = {}
         
+        
         for word in strs:
             
-            string = ''.join(sorted(word))
-            #print(string)
+            s = ''.join(sorted(word))
             
-            if string in a:
+            if s in a:
                 
-                a[string].append(word)
+                a[s].append(word)
             
             else:
                 
-                a[string] = [word]
-            
-            
+                a[s] = [word]
         
         result = []
-        for key, values in a.items():
+        
+        for key, value in a.items():
             
-            result.append(values)
+            result.append(value)
         
         return result
-        
-        

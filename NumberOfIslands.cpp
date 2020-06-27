@@ -2,29 +2,25 @@ class Solution {
 public:
     int numIslands(vector<vector<char>>& grid) 
     {
+        int count = 0;
+        
         
         int row = grid.size();
         int col;
+        
         if(row)
         {
             col = grid[0].size();
         }
         
-        else
-        {
-            return 0;
-        }
         
-        char marked = 'X';
+        vector<pair<int, int>> directions;
+        directions.push_back({0, 1});
+        directions.push_back({1, 0});
+        directions.push_back({0, -1});
+        directions.push_back({-1, 0});
         
-        int count = 0;
         
-        vector<pair<int, int>> v;
-        
-        v.push_back({-1, 0});
-        v.push_back({0, -1});
-        v.push_back({1, 0});
-        v.push_back({0, 1});
         
         
         for(int i = 0; i < row; i++)
@@ -33,47 +29,35 @@ public:
             {
                 if(grid[i][j] == '1')
                 {
-                    //cout << i << " " << j << endl;
                     count = count + 1;
-                    
                     queue<pair<int, int>> que;
-                    
-                    grid[i][j] = '0';
                     que.push({i, j});
                     
                     
                     while(!que.empty())
                     {
-                        int a = que.front().first;
-                        int b = que.front().second;
-                        
-                        
+                        int x = que.front().first;
+                        int y = que.front().second;
                         que.pop();
                         
-                        
-                        for(int k = 0; k < 4; k++)
+                        for(int i = 0; i < 4; i++)
                         {
-                            int m = a + v[k].first;
-                            int n = b + v[k].second;
+                            int a = x + directions[i].first;
+                            int b = y + directions[i].second;
                             
-                           
                             
-                            if(m > -1 && m < row && n > -1 && n < col && grid[m][n] != '0')
+                            if(a > -1 && a < row && b > -1 && b < col && grid[a][b] == '1')
                             {
-                                cout << m << " " << n << endl;
-                                que.push({m, n});
-                                grid[m][n] = '0';
+                                que.push({a, b});
+                                grid[a][b] = '-';
                             }
                             
                         }
-                        
                     }
                 }
             }
         }
         
-        
         return count;
-        
     }
 };

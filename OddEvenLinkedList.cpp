@@ -1,26 +1,63 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
 public:
-    ListNode* oddEvenList(ListNode* head) {
-        if (!head) return NULL;
+    ListNode* oddEvenList(ListNode* head) 
+    {
+        ListNode* odd = NULL;
+        ListNode* temp1 = NULL;
+        ListNode* even = NULL;
+        ListNode* temp2 = NULL;
         
-        ListNode* odd = head;
-        ListNode* even = odd->next;
-        ListNode* nextodd, *nexteven;
-        ListNode* t1 = odd;
-        ListNode* t2 = even;
+        int count = 1;
+        ListNode* x = head;
         
-        while (odd && even) {
-            nextodd = even->next;
-            nexteven = (nextodd) ? nextodd->next : NULL;
-            odd->next = nextodd;
-            even->next = nexteven;
-            even = nexteven;
-            if (nextodd)
-                odd = nextodd;
+        if(head == NULL)
+        {
+            return NULL;
         }
         
-        if (odd) odd->next = t2;
+        while(x)
+        {
+            if(count % 2 == 0)
+            {
+                if(even == NULL)
+                {
+                    even = new ListNode(x -> val);
+                    temp2 = even;
+                }
+                else
+                {
+                    temp2 -> next = new ListNode(x -> val);
+                    temp2 = temp2 -> next;
+                }
+            }
+            else
+            {
+                if(odd == NULL)
+                {
+                    odd = new ListNode(x -> val);
+                    temp1 = odd;
+                }
+                else
+                {
+                    temp1 -> next = new ListNode(x -> val);
+                    temp1 = temp1 -> next;
+                }
+            }
+            count = count + 1;
+            x = x -> next;
+        }
         
-        return t1;
+        temp1 -> next = even;
+        return odd;
     }
 };

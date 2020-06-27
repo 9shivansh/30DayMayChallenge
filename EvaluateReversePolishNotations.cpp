@@ -1,57 +1,54 @@
 class Solution {
 public:
-    int evalRPN(vector<string> &tokens) {
-        stack<int> st;
-        int s1,s2;
-        s1=s2=0;
-        int res=0;
-        for(vector<string>::iterator iter=tokens.begin();iter!=tokens.end();iter++)
+    int evalRPN(vector<string>& str) 
+    {
+        int size = str.size();
+        stack<int> s;
+        
+        for(int i = 0; i < size; i++)
         {
-                if (*iter == "+")
-                {
-                    s1=st.top();
-                    st.pop();
-                    s2=st.top();
-                    st.pop();
-                   res=s1+s2;
-                   st.push(res);
-                }
-                   
-                else if (*iter == "-")
-                {
-                    s1=st.top();
-                    st.pop();
-                    s2=st.top();
-                    st.pop();
-                   res=s2-s1;
-                   st.push(res);
-                }
-                else if (*iter == "*")
-                {
-                    s1=st.top();
-                    st.pop();
-                    s2=st.top();
-                    st.pop();
-                   res=s1*s2;
-                   st.push(res);
-                }
-                else if (*iter== "/")
-                {
-                    s1=st.top();
-                    st.pop();
-                    s2=st.top();
-                    st.pop();
-                    res=s2/s1;
-                    st.push(res);
-                }
-                else 
-                {
-                    st.push(atoi((*iter).c_str()));
-                }
+            if(str[i] != "+" && str[i] != "/" && str[i] != "*" && str[i] != "-")
+            {
+                int p = stoi(str[i]);
+                
+                cout << p << endl;
+                
+                s.push(p);
             }
-            return st.top();
-
             
+            else
+            {
+                int a = s.top();
+                s.pop();
+                int b = s.top();
+                s.pop();
+                int c;
+                
+                if(str[i] == "+")
+                {
+                    c = a + b;
+                }
+                
+                if(str[i] == "-")
+                {
+                    c = b - a;
+                }
+                
+                if(str[i] == "/")
+                {
+                    c = b / a;
+                }
+                
+                if(str[i] == "*")
+                {
+                    c = b * a;
+                }
+                
+                s.push(c);
+            }
         }
         
+        return s.top();
+        
+    }
 };

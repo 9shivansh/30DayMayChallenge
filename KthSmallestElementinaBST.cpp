@@ -11,26 +11,31 @@
  */
 class Solution {
 public:
-    vector<int> traverse;
+    vector<int> values;
     int kthSmallest(TreeNode* root, int k) 
     {
         helper(root);
-        return traverse[k - 1];
+        
+        int size = values.size();
+        
+        return values[k - 1];
     }
-    
     
     void helper(TreeNode* root)
     {
-        if(root -> left)
+        if(root)
         {
-            helper(root -> left);
-        }
-        
-        traverse.push_back(root -> val);
-        
-        if(root -> right)
-        {
-            helper(root -> right);
+            if(root -> left)
+            {
+                helper(root -> left);
+            }
+            
+            values.push_back(root -> val);
+            
+            if(root -> right)
+            {
+                helper(root -> right);
+            }
         }
     }
 };
