@@ -1,32 +1,42 @@
 class Solution {
 public:
-    set<int> s1;
     bool isHappy(int n) 
     {
-        if(s1.find(n) != s1.end())
+        unordered_map<int, int> mp;
+        
+        mp[n] = 1;
+        
+        int sum = n;
+        while(sum != 1)
         {
-            return false;
-        }
-        
-        s1.insert(n);
-        
-        long int sum = 0;
-        
-        while(n)
-        {
-            int p = n % 10;
-            cout << p << endl;
-            sum = sum  + (p * p);
-            cout << sum << endl;
-            n = n / 10;
+            int q = helper(sum);
             
-            cout << "---------" << endl;
-        }
-        if(sum == 1)
-        {
-            return true;
+            if(mp.find(q) == mp.end())
+            {
+                mp[q] = 1;
+                sum = q;
+            }
+            
+            else
+            {
+                return false;
+            }
         }
         
-        return isHappy(sum);
+        return true;
+    }
+    
+    
+    int helper(int s)
+    {
+        int sum = 0;
+        while(s)
+        {
+            int q = s % 10;
+            sum = sum + (q * q);
+            s = s / 10;
+        }
+        
+        return sum;
     }
 };
