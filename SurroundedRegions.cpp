@@ -2,19 +2,17 @@ class Solution {
 public:
     void solve(vector<vector<char>>& board) 
     {
-        int row = board.size();
+        
+        int row;
         int col;
         
+        row = board.size();
         if(row)
         {
             col = board[0].size();
-        
         }
         
-        else
-        {
-            return;
-        }
+        
         
         for(int i = 0; i < row; i++)
         {
@@ -28,7 +26,6 @@ public:
                 conversion(board, i, col - 1);
             }
         }
-        
         
         for(int j = 0; j < col; j++)
         {
@@ -48,26 +45,19 @@ public:
         {
             for(int j = 0; j < col; j++)
             {
-                cout << board[i][j] << " ";
                 if(board[i][j] == 'O')
                 {
                     board[i][j] = 'X';
                 }
                 
-                if(board[i][j] == '1')
+                if(board[i][j] == '#')
                 {
                     board[i][j] = 'O';
                 }
             }
-            
-            cout << endl;
         }
         
-        
-        
-        
     }
-    
     
     
     void conversion(vector<vector<char>>& board, int i, int j)
@@ -75,13 +65,14 @@ public:
         int row = board.size();
         int col = board[0].size();
         
-        board[i][j] = '1';
+        board[i][j] = '#';
+        
         
         vector<pair<int, int>> directions;
-        directions.push_back({-1, 0});
+        directions.push_back({0, 1});
         directions.push_back({1, 0});
-        directions.push_back({0 ,-1});
-        directions.push_back({0 , 1});
+        directions.push_back({-1, 0});
+        directions.push_back({0, -1});
         
         
         for(int k = 0; k < 4; k++)
@@ -89,24 +80,13 @@ public:
             int a = i + directions[k].first;
             int b = j + directions[k].second;
             
+            
             if(a > -1 && a < row && b > -1 && b < col && board[a][b] == 'O')
             {
-                cout << a << " " << b << endl;
-                board[a][b] = '1';
+                board[a][b] = '#';
                 conversion(board, a, b);
             }
             
-            
-            
         }
-        
-        
     }
-    
-   
-    
 };
-
-
-
-// first, we need to check the elements present on the border

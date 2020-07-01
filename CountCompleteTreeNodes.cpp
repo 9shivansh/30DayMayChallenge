@@ -12,6 +12,7 @@
 class Solution {
 public:
     int count = 0;
+    
     int countNodes(TreeNode* root) 
     {
         helper(root);
@@ -22,17 +23,10 @@ public:
     {
         if(root)
         {
-            if(root -> left)
-            {
-                helper(root -> left);
-            }
-            
             count = count + 1;
             
-            if(root -> right)
-            {
-                helper(root -> right);
-            }
+            helper(root -> left);
+            helper(root -> right);
         }
     }
 };
