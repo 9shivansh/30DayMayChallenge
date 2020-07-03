@@ -1,12 +1,12 @@
 class Solution {
 public:
-    vector<int> prisonAfterNDays(vector<int>& c, int N) {
-  vector<int> f_c, next_c(c.size(), 0);
-  for (int cycle = 0; N-- > 0; c = next_c, ++cycle) {
-    for (auto i = 1; i < c.size() - 1; ++i) next_c[i] = c[i - 1] == c[i + 1];
-    if (cycle == 0) f_c = next_c;
-    else if (next_c == f_c) N %= cycle;
-  }
-  return c;
-}
+    vector<int> prisonAfterNDays(vector<int>& cells, int N) {
+        for (N = (N - 1) % 14 + 1; N > 0; --N) {
+            vector<int> cells2(8, 0);
+            for (int i = 1; i < 7; ++i)
+                cells2[i] = cells[i - 1] == cells[i + 1] ? 1 : 0;
+            cells = cells2;
+        }
+        return cells;
+    }
 };
