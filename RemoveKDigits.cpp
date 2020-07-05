@@ -1,56 +1,17 @@
 class Solution {
 public:
     string removeKdigits(string num, int k) {
-        /**
-         *  Monotonous Stack
-         * 
-         *  1 4 3 2 2 1 9, aval = 3
-         * 
-         *  [1]
-         * 
-         *  [1, 4]
-         * 
-         *  [1, 3]         aval = 2
-         * 
-         *  [1, 2]         aval = 1
-         * 
-         *  [1, 2, 2]      aval = 1
-         * 
-         *  [1, 2, 1]      aval = 0
-         * 
-         *  [1, 2, 1, 9]   aval = 0
-         */
-        
-        int n = num.size();
-        int bk = k;
-        
-        std::deque<char> deque;
-        deque.push_back(num[0]);
-        
-        for (int i = 1 ; i < n ; ++i) {
-            while (!deque.empty() && deque.back() > num[i] && k > 0) {
-                deque.pop_back();
+        string res = "";
+        int n = num.size(), keep = n - k;
+        for (char c : num) {
+            while (k && res.size() && res.back() > c) {
+                res.pop_back();
                 --k;
             }
-            deque.push_back(num[i]);
+            res.push_back(c);
         }
-        
-        while (deque.front() == '0') {
-            deque.pop_front();
-        }
-        while (deque.size() > n - bk) {
-            deque.pop_back();
-        }
-        
-        if (deque.empty()) {
-            return "0";
-        }
-        
-        std::string ans;
-        while (!deque.empty()) {
-            ans += deque.front();
-            deque.pop_front();
-        }
-        return ans;
+        res.resize(keep);
+        while (!res.empty() && res[0] == '0') res.erase(res.begin());
+        return res.empty() ? "0" : res;
     }
 };
