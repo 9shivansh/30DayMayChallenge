@@ -4,27 +4,20 @@ public:
     {
         int carry = 1;
         
-        //vector<int> temp;
-        
         
         int size = digits.size();
         
         
-        for(int i = size - 1; i > -1; i--)
+        int end = size - 1;
+        
+        while(end > -1)
         {
-            int num = digits[i] + carry;
-            if(num > 9)
-            {
-                digits[i] = num % 10;
-                carry = num/10;
-            }
+            int sum = digits[end] + carry;
             
-            else
-            {
-                digits[i] = num;
-                carry = 0;
-            }
+            carry = sum / 10;
+            digits[end] = sum % 10;
             
+            end--;
         }
         
         if(carry == 1)
@@ -33,7 +26,6 @@ public:
         }
         
         return digits;
-        
         
     }
 };

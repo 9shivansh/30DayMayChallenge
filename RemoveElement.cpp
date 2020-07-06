@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void moveZeroes(vector<int>& nums) 
+    int removeElement(vector<int>& nums, int val) 
     {
         int start = 0;
         
@@ -8,16 +8,14 @@ public:
         
         for(int i = 0; i < size; i++)
         {
-            if(nums[i] != 0)
+            if(nums[i] != val)
             {
                 nums[start++] = nums[i];
+                
             }
         }
         
-        for(int i = start; i < size; i++)
-        {
-            nums[i] = 0;
-        }
+        return start;
         
     }
 };
