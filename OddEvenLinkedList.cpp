@@ -13,51 +13,61 @@ public:
     ListNode* oddEvenList(ListNode* head) 
     {
         ListNode* odd = NULL;
-        ListNode* temp1 = NULL;
         ListNode* even = NULL;
-        ListNode* temp2 = NULL;
+        
+        ListNode* headOdd = NULL;
+        ListNode* headEven = NULL;
+        
         
         int count = 1;
-        ListNode* x = head;
+        
+        ListNode* temp = head;
         
         if(head == NULL)
         {
             return NULL;
         }
         
-        while(x)
+        while(temp)
         {
             if(count % 2 == 0)
             {
-                if(even == NULL)
+                if(headEven == NULL)
                 {
-                    even = new ListNode(x -> val);
-                    temp2 = even;
+                    headEven = new ListNode(temp -> val);
+                    even = headEven;
                 }
+                
                 else
                 {
-                    temp2 -> next = new ListNode(x -> val);
-                    temp2 = temp2 -> next;
+                    even -> next = new ListNode(temp -> val);
+                    even = even -> next;
                 }
             }
+            
             else
             {
-                if(odd == NULL)
+                if(headOdd == NULL)
                 {
-                    odd = new ListNode(x -> val);
-                    temp1 = odd;
+                    headOdd = new ListNode(temp -> val);
+                    odd = headOdd;
                 }
+                
                 else
                 {
-                    temp1 -> next = new ListNode(x -> val);
-                    temp1 = temp1 -> next;
+                    odd -> next = new ListNode(temp -> val);
+                    odd = odd -> next;
                 }
             }
+            
+            temp = temp -> next;
             count = count + 1;
-            x = x -> next;
+            
         }
         
-        temp1 -> next = even;
-        return odd;
+        odd -> next = headEven;
+        
+        return headOdd;
+        
     }
 };

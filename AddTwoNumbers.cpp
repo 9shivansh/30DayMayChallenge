@@ -14,12 +14,12 @@ public:
     {
         int carry = 0;
         
-        
         ListNode* temp1 = l1;
         ListNode* temp2 = l2;
         
         ListNode* head = NULL;
-        ListNode* remp = NULL;
+        ListNode* temp = NULL;
+        
         
         while(temp1 && temp2)
         {
@@ -30,13 +30,13 @@ public:
             if(head == NULL)
             {
                 head = new ListNode(digit);
-                remp = head;
+                temp = head;
             }
             
             else
             {
-                remp -> next = new ListNode(digit);
-                remp = remp -> next;
+                temp -> next = new ListNode(digit);
+                temp = temp -> next;
             }
             
             temp1 = temp1 -> next;
@@ -48,9 +48,8 @@ public:
             int sum = temp1 -> val + carry;
             carry = sum / 10;
             int digit = sum % 10;
-            
-            remp -> next = new ListNode(digit);
-            remp = remp -> next;
+            temp -> next = new ListNode(digit);
+            temp = temp -> next;
             temp1 = temp1 -> next;
         }
         
@@ -59,16 +58,15 @@ public:
             int sum = temp2 -> val + carry;
             carry = sum / 10;
             int digit = sum % 10;
-            
-            remp -> next = new ListNode(digit);
-            remp = remp -> next;
+            temp -> next = new ListNode(digit);
+            temp = temp -> next;
             temp2 = temp2 -> next;
-            
         }
         
-        if(carry == 1)
+        if(carry)
         {
-            remp -> next = new ListNode(carry);
+            temp -> next = new ListNode(carry);
+            temp = temp -> next;
         }
         
         return head;

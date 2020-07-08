@@ -12,75 +12,70 @@ class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) 
     {
+        if(l1 == NULL)
+        {
+            return l2;
+        }
+        
+        if(l2 == NULL)
+        {
+            return l1;
+        }
+        
         ListNode* temp1 = l1;
         ListNode* temp2 = l2;
         
-        ListNode* result = NULL;
-        ListNode* result1;
+        ListNode* head = NULL;
+        ListNode* temp = NULL;
         
-        if(temp1 == NULL)
-        {
-            return temp2;
-        }
-        
-        if(temp2 == NULL)
-        {
-            return temp1;
-        }
         
         while(temp1 && temp2)
         {
-            if(temp1 -> val > temp2 -> val)
+            if(temp1 -> val < temp2 -> val)
             {
-                if(result == NULL)
+                if(head == NULL)
                 {
-                    result = new ListNode(temp2 -> val);
-                    result1 = result;
-                    temp2 = temp2 -> next;
+                    head = new ListNode(temp1 -> val);
+                    temp = head;
                 }
-                
                 else
                 {
-                    result1 -> next = new ListNode(temp2 -> val);
-                    temp2 = temp2 -> next;
-                    result1 = result1 -> next;
+                    temp -> next = new ListNode(temp1 -> val);
+                    temp = temp -> next;
                 }
+                
+                temp1 = temp1 -> next;
             }
             
             else
             {
-                if(result == NULL)
+                if(head == NULL)
                 {
-                    result = new ListNode(temp1 -> val);
-                    result1 = result;
-                    temp1 = temp1 -> next;
+                    head = new ListNode(temp2 -> val);
+                    temp = head;
                 }
                 
                 else
                 {
-                    result1 -> next = new ListNode(temp1 -> val);
-                    temp1 = temp1 -> next;
-                    result1 = result1 -> next;
+                    temp -> next = new ListNode(temp2 -> val);
+                    temp = temp -> next;
                 }
+                
+                temp2 = temp2 -> next;
             }
         }
         
-        
-        while(temp1)
+        if(temp1)
         {
-            result1 -> next = new ListNode(temp1 -> val);
-            result1 = result1 -> next;
-            temp1 = temp1 -> next;
+            temp -> next = temp1;
         }
         
-        while(temp2)
+        if(temp2)
         {
-            result1 -> next = new ListNode(temp2 -> val);
-            result1 = result1 -> next;
-            temp2 = temp2 -> next;
+            temp -> next = temp2;
         }
         
+        return head;
         
-        return result;
     }
 };
