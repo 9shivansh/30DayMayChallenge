@@ -2,23 +2,39 @@ class Solution {
 public:
     char nextGreatestLetter(vector<char>& letters, char target) 
     {
-        if(target>=letters[letters.size()-1])
+        int size = letters.size();
+        
+        
+        
+        int start = 0;
+        int end  = size - 1;
+        
+        if(letters[end] <= target)
         {
-            return letters[0];
+            return letters[start];
         }
-        int low=0;
-        int high=letters.size();
-        while(low<=high)
+        
+        while(start < end)
         {
-            int mid=(low+high)/2;
-            if(letters[mid]==target || letters[mid]<target)
+            int mid = (start + end) / 2;
+            
+            
+            if(letters[mid] > target)
             {
-                low=mid+1;
+                end = mid;
             }
-            else{
-                high=mid-1;
+            
+            else
+            {
+                start = mid + 1;
             }
         }
-        return letters[low];
+        
+        if(letters[start] == target)
+        {
+            return letters[start + 1];
+        }
+        
+        return letters[start];
     }
 };

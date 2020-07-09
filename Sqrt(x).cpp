@@ -1,15 +1,38 @@
 class Solution {
 public:
-    int mySqrt(int x) {
-        int low = 0,  high = x, mid;
-        if(x<2) return x; // to avoid mid = 0
-        while(low<high)
+    int mySqrt(int x) 
+    {
+        if(x == 0 || x == 1)
         {
-            mid = (low + high)/2;
-            if(x/mid >= mid) low = mid+1;
-            else high = mid;
+            return x;
         }
-        return high-1;
+        
+        long long start = 2;
+        long long end = x;
+        
+        
+        while(start <= end)
+        {
+            long long mid = (start + end) / 2;
+            
+            if(mid * mid == x)
+            {
+                return mid;
+            }
+            
+            if(mid * mid < x)
+            {
+                start = mid + 1;
+            }
+            
+            if(mid * mid > x)
+            {
+                end = mid - 1;
+            }
+            
+        }
+        
+        return start - 1;
         
     }
 };

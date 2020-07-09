@@ -7,14 +7,32 @@ public:
             return true;
         }
         
-        for(long long int i = 2; i * i <= num; i++)
+        long long start = 2;
+        
+        long long end = num;
+        
+        
+        while(start < end)
         {
-            if(i * i == num)
+            long long mid = (start + end) / 2;
+            
+            if(mid * mid == num)
             {
                 return true;
             }
+            
+            
+            if(mid * mid < num)
+            {
+                start = mid + 1;
+            }
+            
+            if(mid * mid > num)
+            {
+            
+                end = mid;
+            }
         }
-        
         
         return false;
     }

@@ -2,8 +2,15 @@ class Solution {
 public:
     int search(vector<int>& nums, int target) 
     {
+        int size = nums.size();
+        
+        if(size == 0)
+        {
+            return -1;
+        }
+        
         int start = 0;
-        int end = nums.size() - 1;
+        int end = size - 1;
         
         while(start <= end)
         {
@@ -26,5 +33,6 @@ public:
         }
         
         return -1;
+        
     }
 };
