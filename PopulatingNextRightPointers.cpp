@@ -27,42 +27,38 @@ public:
         
         queue<Node*> que;
         
-        
         que.push(root);
         
         while(!que.empty())
         {
             int size = que.size();
             
-            Node* current;
+            Node* curr;
             
             for(int i = 0; i < size; i++)
             {
-                current = que.front();
+                curr = que.front();
+                
                 que.pop();
                 
-                current -> next = que.front();
+                curr -> next = que.front();
                 
-                
-                if(current -> left)
+                if(curr -> left)
                 {
-                    que.push(current -> left);
+                    que.push(curr -> left);
                 }
                 
-                if(current -> right)
+                if(curr -> right)
                 {
-                    que.push(current -> right);
+                    que.push(curr -> right);
                 }
                 
+                //curr = curr -> next;
             }
             
-            current -> next = NULL;
-            
-            
-            
+            curr -> next = NULL;
         }
         
         return root;
-        
     }
 };

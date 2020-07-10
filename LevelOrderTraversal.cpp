@@ -15,7 +15,6 @@ public:
     {
         vector<vector<int>> result;
         
-        
         if(root == NULL)
         {
             return result;
@@ -23,9 +22,7 @@ public:
         
         queue<TreeNode*> que;
         
-        
         que.push(root);
-        
         
         while(!que.empty())
         {
@@ -35,25 +32,24 @@ public:
             
             for(int i = 0; i < size; i++)
             {
-                TreeNode* current = que.front();
+                TreeNode* curr = que.front();
                 que.pop();
-                temp.push_back(current -> val);
                 
-                if(current -> left)
+                temp.push_back(curr -> val);
+                
+                if(curr -> left)
                 {
-                    que.push(current -> left);
+                    que.push(curr -> left);
                 }
                 
-                if(current -> right)
+                if(curr -> right)
                 {
-                    que.push(current -> right);
+                    que.push(curr -> right);
                 }
             }
             
             result.emplace_back(temp);
-            
         }
-        
         
         return result;
         

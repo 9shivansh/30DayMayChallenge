@@ -11,43 +11,30 @@
  */
 class Solution {
 public:
-    bool flag = false;
-    
-    bool hasPathSum(TreeNode* root, int sum) 
+    int depth = 0;
+    int maxDepth(TreeNode* root) 
     {
-        if(!root)
-        {   
-            return false;
+        if(root == NULL)
+        {
+            return 0;
         }
         
-        helper(root, 0, sum);
+        helper(root, 1);
         
-        return flag;
+        return depth;
     }
     
-    void helper(TreeNode* root, int p, int sum)
+    void helper(TreeNode* root, int d)
     {
-        p = p + root -> val;
-        
-        if(!root -> left && !root -> right)
-        {
-            if(p == sum)
-            {
-                flag = true;
-                return;
-            }
-        }
-        
+        depth = max(d, depth);
         if(root -> left)
         {
-            helper(root -> left, p, sum);
+            helper(root -> left, d + 1);
         }
         
         if(root -> right)
         {
-            helper(root -> right, p, sum);
+            helper(root -> right, d + 1);
         }
     }
-    
-    
 };
