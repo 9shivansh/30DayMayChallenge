@@ -11,47 +11,22 @@
  */
 class Solution {
 public:
-    
-    vector<int> preorder;
-    
     bool isValidBST(TreeNode* root) 
     {
-        helper(root);
-        
-        int size = preorder.size();
-        
-        for(int i = 1; i < size; i++)
-        {
-            if(preorder[i] <= preorder[i - 1])
-            {
-                return false;
-            }
-        }
-        
-        return true;
-        
-        
+        return isValidBST(root, NULL, NULL);
     }
-    
-    void helper(TreeNode* root)
+
+    bool isValidBST(TreeNode* root, TreeNode* minNode, TreeNode* maxNode) 
     {
-        if(root)
+        if(!root)
         {
-            if(root -> left)
-            {
-                helper(root -> left);
-            }
-            
-            preorder.push_back(root -> val);
-            
-            if(root -> right)
-            {
-                helper(root -> right);
-            }
+            return true;
+        }
+        if(minNode && root->val <= minNode->val || maxNode && root->val >= maxNode->val)
+        {
+            return false;
         }
         
-        //return true;
-    }
-    
-    
+        return isValidBST(root->left, minNode, root) && isValidBST(root->right, root, maxNode);
+}
 };

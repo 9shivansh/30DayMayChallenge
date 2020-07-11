@@ -11,37 +11,34 @@
  */
 class Solution {
 public:
-    
     bool flag = true;
-    
-    
     bool isBalanced(TreeNode* root) 
     {
-        
-        int result = findHeight(root);
+        int result = height(root);
         return flag;
-        
-        
     }
     
-    int findHeight(TreeNode* root)
+    
+    int height(TreeNode* root)
     {
-        if(root)
+        if(root == NULL)
         {
-            int Lheight = findHeight(root -> left) + 1;
-            int Rheight = findHeight(root -> right) + 1;
-            cout << "Left Height " << Lheight << endl;
-            cout << "Right Height " << Rheight << endl; 
-            
-            if(abs(Lheight - Rheight) > 1)
-            {
-                flag = false;
-            }
-            
-            return max(Lheight, Rheight);
+            return 0;
         }
         
-        return 0;
+        int Lheight = height(root -> left);
+        int Rheight = height(root -> right);
         
+        if(abs(Lheight - Rheight) > 1)
+        {
+            flag = false;
+        }
+        
+        return max(Lheight, Rheight) + 1;
     }
 };
+
+
+// we need to find height of right subtree and left subtree
+// if(diff > 1) => return false
+// else go to left and right

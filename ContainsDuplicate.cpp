@@ -1,26 +1,24 @@
 class Solution {
 public:
-    bool containsDuplicate(vector<int>& nums) 
-    {
-        unordered_map<int, int> mp;
+     bool containsNearbyAlmostDuplicate(vector<int>& nums, int k, int t) {
+        vector<pair<int, int>> hh;
+        int sz= nums.size();
+        for( int i = 0; i < sz; i ++)
+            hh.push_back( make_pair(nums[i], i));
         
         
-        int size = nums.size();
+        sort( hh.begin(), hh.end());
         
-        for(int i = 0; i < size; i++)
-        {
-            if(mp.find(nums[i]) != mp.end())
-            {
-                return true;
-            }
-            
-            else
-            {
-                mp[nums[i]] = 1;
+        for(int i =0; i < sz-1; i ++){
+            for( int j =i +1; j < sz; j ++){
+                if(hh[i].first +t < hh[j].first)
+                   break;
+                
+                if( abs(hh[j].second - hh[i].second) <= k)
+                    return true;
             }
         }
-        
+                   
         return false;
-        
-    }
+     }
 };
