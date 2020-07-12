@@ -1,18 +1,55 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
 class Solution {
 public:
-    vector<TreeNode*> findDuplicateSubtrees(TreeNode* root) {
-        unordered_map<string, vector<TreeNode*>> map;
-        vector<TreeNode*> dups;
-        serialize(root, map);
-        for (auto it = map.begin(); it != map.end(); it++)
-            if (it->second.size() > 1) dups.push_back(it->second[0]);
-        return dups;
+    vector<TreeNode*> findDuplicateSubtrees(TreeNode* root) 
+    {   
+        vector<TreeNode*> result;
+        unordered_map<string, int> map;
+        
+        string a = merkel(root, map, result);
+        
+        return result;
     }
-private:
-    string serialize(TreeNode* node, unordered_map<string, vector<TreeNode*>>& map) {
-        if (!node) return "";
-        string s = "(" + serialize(node->left, map) + to_string(node->val) + serialize(node->right, map) + ")";
-        map[s].push_back(node);
-        return s;
+    
+    string merkel(TreeNode* root, unordered_map<string, int>& map, vector<TreeNode*>& result)
+    {
+        if(root == NULL)
+        {
+            return "#";
+        }
+        
+        string left = merkel(root -> left, map, result);
+        string middle = to_string(root -> val);
+        string right = merkel(root -> right, map, result);
+        
+        string path = left + right + middle;
+        
+        if(map.find(path) != map.end())
+        {
+            map[path]++;
+        }
+        
+        else
+        {
+            map[path] = 1;
+        }
+        
+        if(map[path] == 2)
+        {
+            result.push_back(root);
+        }
+        
+        
+        return path;
     }
 };

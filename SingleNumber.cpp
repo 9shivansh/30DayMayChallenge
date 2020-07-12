@@ -2,32 +2,29 @@ class Solution {
 public:
     int singleNumber(vector<int>& nums) 
     {
-        unordered_map<int, int> m;
+        int answer;
         
         int size = nums.size();
         
+        if(size == 0)
+        {
+            return 0;
+        }
+        
         for(int i = 0; i < size; i++)
         {
-            if(m.find(nums[i]) != m.end())
+            if(i == 0)
             {
-                m[nums[i]] = m[nums[i]] + 1;
+                answer = nums[i];
             }
             
             else
             {
-                m[nums[i]] = 1;
+                answer = answer ^ nums[i];
             }
         }
         
+        return answer;
         
-        for(auto x : m)
-        {
-            if(x.second == 1)
-            {
-                return x.first;
-            }
-        }
-        
-        return -1;
     }
 };

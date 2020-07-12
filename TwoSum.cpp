@@ -2,26 +2,28 @@ class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) 
     {
-        unordered_map<int, int> mp;
+        unordered_map<int, int> map;
         
         int size = nums.size();
         
-        vector<int> result;
+        vector<int> sum;
         
         for(int i = 0; i < size; i++)
         {
-            if(mp.find(target - nums[i]) != mp.end())
+            if(map.find(target - nums[i]) != map.end())
             {
-                result.push_back(mp[target - nums[i]]);
-                result.push_back(i);
+                sum.push_back(map[target - nums[i]]);
+                sum.push_back(i);
+                return sum;
             }
             
             else
             {
-                mp[nums[i]] = i;
+                map[nums[i]] = i;
             }
         }
         
-        return result;
+        return sum;
+        
     }
 };

@@ -1,26 +1,29 @@
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         
+        length = len(nums)
+        
         a = {}
         
-        for num in nums:
+        for i in range(length):
             
-            if num in a:
+            if nums[i] in a:
                 
-                a[num] = a[num] + 1
+                a[nums[i]] += 1
             
             else:
                 
-                a[num] = 1
+                a[nums[i]] = 1
         
         
-        result = sorted(a.items(), key = lambda x : x[1], reverse = True)
         
-        answer = []
         
-        for p in result:
+        temp = sorted(a.items(), key = lambda x : x[1], reverse = True)
+        
+        result = []
+        
+        for i in range(k):
             
-            answer.append(p[0])
-            
-        return answer[:k]
+            result.append(temp[i][0])
         
+        return result

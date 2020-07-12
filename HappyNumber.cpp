@@ -2,39 +2,40 @@ class Solution {
 public:
     bool isHappy(int n) 
     {
-        unordered_map<int, int> mp;
+        unordered_map<int, int> map;
         
-        mp[n] = 1;
+        map[n]++;
+        int sum = find(n);
         
-        int sum = n;
+        
         while(sum != 1)
         {
-            int q = helper(sum);
-            
-            if(mp.find(q) == mp.end())
+            if(map.find(sum) != map.end())
             {
-                mp[q] = 1;
-                sum = q;
+                return false;
             }
             
             else
             {
-                return false;
+                map[sum]++;
+                sum = find(sum);
             }
+            
+            cout << sum << endl;
         }
         
         return true;
+        
     }
     
-    
-    int helper(int s)
+    int find(int n)
     {
         int sum = 0;
-        while(s)
+        while(n)
         {
-            int q = s % 10;
-            sum = sum + (q * q);
-            s = s / 10;
+            int p = n % 10;
+            sum += p * p;
+            n = n / 10;
         }
         
         return sum;
