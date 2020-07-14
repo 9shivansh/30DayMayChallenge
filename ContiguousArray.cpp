@@ -2,45 +2,41 @@ class Solution {
 public:
     int findMaxLength(vector<int>& nums) 
     {
-        unordered_map<int, int> mp;
+        int count = 0;
         
-        int sum = 0;
+        int maxLength = 0;
+        
+        unordered_map<int, int> map;
+        
+        map[0] = 0;
         
         int size = nums.size();
-        
-        mp.insert(make_pair(0, -1));
-        
-        int maxDiff = INT_MIN;
         
         for(int i = 0; i < size; i++)
         {
             if(nums[i] == 0)
             {
-                sum = sum + 1;
+                count = count + 1;
             }
             
             if(nums[i] == 1)
             {
-                sum = sum - 1;
+                count = count - 1;
             }
             
-            if(mp.find(sum) != mp.end())
+            if(map.find(count) != map.end())
             {
-                maxDiff = max(maxDiff, i - mp[sum]);
+                int length = i + 1 - map[count];
+                maxLength = max(maxLength, length);
             }
             
             else
             {
-                mp.insert(make_pair(sum, i));
+                map[count] = i + 1;
             }
         }
         
-        if(maxDiff == INT_MIN)
-        {
-            return 0;
-        }
-        
-        return maxDiff;
+        return maxLength;
         
     }
 };
