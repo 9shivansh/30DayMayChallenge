@@ -1,24 +1,24 @@
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         
-        length = len(nums)
         
         a = {}
         
-        for i in range(length):
+        for num in nums:
             
-            if nums[i] in a:
+            if num in a:
                 
-                a[nums[i]] += 1
+                a[num] = a[num] + 1
             
             else:
                 
-                a[nums[i]] = 1
-        
-        
-        
-        
+                a[num] = 1
+                
+                
         temp = sorted(a.items(), key = lambda x : x[1], reverse = True)
+        
+        
+        #print(temp)
         
         result = []
         
