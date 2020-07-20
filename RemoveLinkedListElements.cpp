@@ -12,35 +12,26 @@ class Solution {
 public:
     ListNode* removeElements(ListNode* head, int val) 
     {
-        ListNode* temp;
+        ListNode* temp = new ListNode(0);
+        temp -> next = head;
         
-        temp = head;
-    
-        if(head == NULL)
-        {
-            return NULL;
-        }
+        //cout << " l " << endl;
+        ListNode* t = temp;
         
-        while(temp -> next)
+        while(t -> next)
         {
-            if(temp -> next -> val == val)
+            //cout << t -> val << endl;
+            if(t -> next -> val == val)
             {
-                temp -> next = temp -> next -> next;
+                t -> next = t -> next -> next;
             }
-            
             else
             {
-                temp = temp -> next;
+                t = t -> next;
             }
         }
         
-        if(head -> val == val)
-        {
-            head = head -> next;
-        }
-    
-        return head;
-        
+        return temp -> next;
         
     }
 };
