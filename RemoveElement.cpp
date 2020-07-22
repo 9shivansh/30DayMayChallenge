@@ -4,18 +4,16 @@ public:
     {
         int size = nums.size();
         
-        int start = 0;
+        int count = 0;
         
         for(int i = 0; i < size; i++)
         {
             if(nums[i] != val)
             {
-                nums[start] = nums[i];
-                start = start + 1;
+                nums[count++] = nums[i];
             }
         }
         
-        return start;
-        
+        return count;
     }
 };
