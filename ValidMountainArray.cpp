@@ -1,65 +1,55 @@
 class Solution {
 public:
-    bool validMountainArray(vector<int>& nums) 
+    bool validMountainArray(vector<int>& A) 
     {
-        int size = nums.size();
+        int size = A.size();
         
-        int index = -1;
+        int flag = 0;
         
-        if(size < 2)
+        if(size <= 1)
         {
             return false;
         }
         
-        for(int i = 1; i < size - 1; i++)
+        
+        for(int i = 0; i < size; i++)
         {
-            if(nums[i] > nums[i + 1] && nums[i] > nums[i - 1])
+            if(flag == 0)
             {
-                index = i;
-                break;
+                if(i == 0)
+                {
+                    if(A[i] >= A[i + 1])
+                    {
+                        return false;
+                    }
+                }
+                
+                else
+                {
+                    if(A[i] <= A[i - 1])
+                    {
+                        flag = 1;
+                    }
+                }
+                
             }
-        }
-        
-        if(index == -1)
-        {
-            return false;
-        }
-        
-        int check1;
-        int check2;
-        
-        for(int i = 0; i < index; i++)
-        {
-            if(nums[i] < nums[i + 1])
-            {
-                check1 = 1;
-            }
-            else
-            {
-                check1 = 0;
-                break;
-            }
-        }
-        
-        for(int i = index; i < size - 1; i++)
-        {
-            if(nums[i] > nums[i + 1])
-            {
-                check2 = 1;
-            }
-            else
-            {
-                check2 = 0;
-                break;
-            }
-        }
-        
-        if(check1 && check2)
-        {
-            return true;
-        }
-        
-        return false;
             
+            if(flag == 1)
+            {
+                if(A[i] >= A[i - 1])
+                {
+                    return false;
+                }
+
+            }
+        }
+        
+        if(flag == 0)
+        {
+            return false;
+        }
+        
+        return true;
+        
     }
 };

@@ -3,29 +3,26 @@ public:
     int twoCitySchedCost(vector<vector<int>>& costs) 
     {
         int size = costs.size();
-        
+        vector<int> difference;
         int sum = 0;
-        
-        vector<int> temp;
         
         for(int i = 0; i < size; i++)
         {
             sum = sum + costs[i][0];
-            temp.push_back(costs[i][0] - costs[i][1]);
-            cout << costs[i][0] - costs[i][1] << endl;
+            vector<int> temp = costs[i];
+            int diff = temp[0] - temp[1];
+            difference.push_back(diff);
         }
         
-        sort(temp.begin(), temp.end());
         
+        sort(difference.begin(), difference.end());
         
         for(int i = size / 2; i < size; i++)
         {
-            sum = sum - temp[i];
+            sum = sum - difference[i];
         }
         
         return sum;
-        
-        
         
     }
 };
