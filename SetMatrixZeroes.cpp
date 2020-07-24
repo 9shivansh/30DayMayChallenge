@@ -2,15 +2,11 @@ class Solution {
 public:
     void setZeroes(vector<vector<int>>& matrix) 
     {
+        vector<pair<int, int>> zeroes;
+        
         int row = matrix.size();
-        int col;
+        int col = matrix[0].size();
         
-        if(row)
-        {
-            col = matrix[0].size();
-        }
-        
-        vector<pair<int, int>> points;
         
         for(int i = 0; i < row; i++)
         {
@@ -18,37 +14,33 @@ public:
             {
                 if(matrix[i][j] == 0)
                 {
-                    points.push_back({i, j});
+                    zeroes.push_back({i, j});
                 }
             }
         }
         
-        int size = points.size();
-        
-        for(int i = 0; i < size; i++)
+        for(int i = 0; i < zeroes.size(); i++)
         {
-            int a = points[i].first;
-            int b = points[i].second;
-            
-            helper(matrix, a, b);
+            flip(matrix, zeroes[i].first, zeroes[i].second);
         }
+            
         
     }
     
     
-    void helper(vector<vector<int>>& matrix, int a, int b)
+    void flip(vector<vector<int>>& matrix, int i, int j)
     {
         int row = matrix.size();
         int col = matrix[0].size();
         
-        for(int i = 0; i < row; i++)
+        for(int k = 0; k < row; k++)
         {
-            matrix[i][b] = 0;
+            matrix[k][j] = 0;
         }
         
-        for(int j = 0; j < col; j++)
+        for(int k = 0; k < col; k++)
         {
-            matrix[a][j] = 0;
+            matrix[i][k] = 0;
         }
     }
 };
