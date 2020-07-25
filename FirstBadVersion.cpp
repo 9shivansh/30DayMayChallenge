@@ -8,6 +8,7 @@ public:
         long long start = 1;
         long long end = n;
         
+        
         while(start < end)
         {
             long long mid = (start + end) / 2;
