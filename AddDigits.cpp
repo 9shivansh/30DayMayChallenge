@@ -1,27 +1,9 @@
 class Solution {
 public:
-    int addDigits(int num) 
-    {
-        
-        int answer = helper(num);
-        return answer;
-    }
-    
-    int helper(int num)
-    {
-        int sum = 0;
-        
-        while(num)
-        {
-            sum = sum + (num % 10);
-            num = num / 10;
+    int addDigits(int num) {
+        while(num/10>0){
+            num = num%10 + num/10;
         }
-        
-        if(sum > 9)
-        {
-            return helper(sum);
-        }
-        
-        return sum;
+        return num;
     }
 };
