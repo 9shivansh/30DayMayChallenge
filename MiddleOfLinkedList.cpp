@@ -1,27 +1,21 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) {}
- *     ListNode(int x) : val(x), next(nullptr) {}
- *     ListNode(int x, ListNode *next) : val(x), next(next) {}
- * };
- */
 class Solution {
 public:
-    ListNode* middleNode(ListNode* head) 
+    bool canJump(vector<int>& nums) 
     {
-        ListNode* slow = head;
-        ListNode* fast = head;
+        int size = nums.size();
         
-        while(fast && fast -> next)
+        int maximum = 0;
+        
+        for(int i = 0; i <= maximum; i++)
         {
-            fast = fast -> next -> next;
-            slow = slow -> next;
+            maximum = max(i + nums[i], maximum);
+            
+            if(maximum >= size - 1)
+            {
+                return true;
+            }
         }
         
-        return slow;
-        
+        return false;
     }
 };

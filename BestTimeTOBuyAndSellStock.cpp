@@ -4,31 +4,25 @@ public:
     {
         int size = prices.size();
         
-        vector<int> right(size);
-        
-        int maxProf = 0;
-        
-        for(int i = size - 1; i > -1; i--)
+        if(size < 2)
         {
-            if(i == size - 1)
-            {
-                right[i] = -1;
-            }
-            
-            else
-            {
-                right[i] = max(right[i + 1], prices[i + 1]);
-                cout << right[i] << " ";
-            
-                
-            }
-            
-            maxProf = max(right[i] - prices[i], maxProf);
-            
-            
+            return 0;
         }
         
-        return maxProf;
+        int maxDiff = 0;
         
+        vector<int> diff(size, 0);
+        
+        diff[size - 1] = -1;
+        
+        
+        for(int i = size - 2; i > -1; i--)
+        {
+            diff[i] = max(prices[i + 1], diff[i + 1]);
+            
+            maxDiff = max(maxDiff, diff[i] - prices[i]);
+        }
+        
+        return maxDiff;
     }
 };

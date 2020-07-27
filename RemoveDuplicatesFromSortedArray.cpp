@@ -2,31 +2,29 @@ class Solution {
 public:
     int removeDuplicates(vector<int>& nums) 
     {
-        int index = 1;
-        
-        
-        
-        
         int size = nums.size();
         
+        int count = 0;
+       
         
-        if(size == 0)
+        for(int i = 0; i < size; i++)
         {
-            return 0;
-        }
-        
-        
-        
-        for(int i = 1; i < size; i++)
-        {
-            if(nums[i] != nums[i - 1])
+            if(i == 0)
             {
-                nums[index++] = nums[i];
+                nums[count++] = nums[i];
+            }
+            
+            else
+            {
+                if(nums[i] != nums[i - 1])
+                {
+                    cout << "here";
+                    nums[count++] = nums[i];
+                }
             }
         }
         
-        return index;
-        
+        return count;
         
     }
 };
